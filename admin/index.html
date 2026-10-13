@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TERRA Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--black:#0A0A0A;--dark:#151515;--card:#1C1C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:white;font-family:'Inter',sans-serif;}
+.login-screen{height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);}
+.login-box{background:var(--card);padding:40px;width:90%;max-width:400px;border:1px solid var(--gold);text-align:center;}
+.login-box h2{color:var(--gold);margin-bottom:20px;letter-spacing:2px;}
+.login-box input{width:100%;padding:14px;background:var(--black);border:1px solid #333;color:white;margin-bottom:15px;}
+.login-box button{width:100%;background:var(--gold);color:black;padding:14px;border:none;font-weight:700;cursor:pointer;}
+.dashboard{display:none;}
+.sidebar{position:fixed;left:0;top:0;width:240px;height:100vh;background:var(--dark);border-right:1px solid rgba(212,175,55,0.2);padding:30px 20px;}
+.sidebar h2{color:var(--gold);font-size:20px;letter-spacing:3px;margin-bottom:40px;}
+.sidebar h2 span{display:block;color:white;font-size:10px;letter-spacing:5px;}
+.menu-item{padding:12px 15px;margin-bottom:8px;cursor:pointer;border-radius:5px;font-size:14px;display:flex;justify-content:space-between;}
+.menu-item.active,.menu-item:hover{background:var(--card);color:var(--gold);}
+.main{margin-left:240px;padding:30px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:30px;}
+.stat-card{background:var(--card);border:1px solid rgba(212,175,55,0.15);padding:25px;}
+.stat-card h3{font-size:13px;color:#888;letter-spacing:1px;margin-bottom:10px;}
+.stat-card .num{font-size:32px;font-weight:700;color:var(--gold);}
+.table-box{background:var(--card);border:1px solid rgba(212,175,55,0.15);padding:25px;margin-bottom:25px;overflow-x:auto;}
+.table-box h3{margin-bottom:20px;font-size:18px;}
+table{width:100%;border-collapse:collapse;}
+th{color:var(--gold);text-align:left;font-size:12px;letter-spacing:1px;padding:12px 10px;border-bottom:1px solid #333;}
+td{padding:12px 10px;font-size:13px;border-bottom:1px solid #222;color:#CCC;}
+.status{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;}
+.status.new{background:rgba(212,175,55,0.2);color:var(--gold);}
+.status.confirmed{background:rgba(37,211,102,0.2);color:#25D366;}
+.btn-sm{padding:6px 12px;border:none;cursor:pointer;font-size:11px;margin-right:5px;border-radius:4px;}
+.btn-confirm{background:#25D366;color:white;}
+.btn-delete{background:#ff4444;color:white;}
+.btn-whatsapp{background:var(--gold);color:black;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.add-menu-form{background:var(--black);padding:20px;border:1px solid #333;margin-top:20px;display:none;}
+.add-menu-form input,.add-menu-form select{width:100%;padding:12px;background:var(--card);border:1px solid #333;color:white;margin-bottom:12px;}
+@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;}}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+<div class="login-box">
+<h2>TERRA<br><span style="color:white;font-size:12px;letter-spacing:4px;">ADMIN LOGIN</span></h2>
+<p style="color:#888;font-size:13px;margin-bottom:20px;">Only for restaurant owner & manager</p>
+<input type="password" id="password" placeholder="Enter password: terra123">
+<button onclick="login()">LOGIN TO DASHBOARD →</button>
+<p style="font-size:11px;color:#666;margin-top:15px;">Demo password: terra123</p>
+</div>
+</div>
+
+<div class="dashboard" id="dashboard">
+<div class="sidebar">
+<h2>TERRA<span>NSUKKA ADMIN</span></h2>
+<div class="menu-item active" onclick="showTab('overview')">📊 Overview</div>
+<div class="menu-item" onclick="showTab('reservations')">📅 Reservations</div>
+<div class="menu-item" onclick="showTab('orders')">🍛 Orders</div>
+<div class="menu-item" onclick="showTab('menu')">📝 Menu Manager</div>
+<div class="menu-item" onclick="showTab('customers')">👥 Customer List</div>
+<div style="margin-top:40px;padding:15px;background:var(--card);border:1px solid var(--gold);">
+<p style="font-size:11px;color:var(--gold);">MONTHLY SERVICE</p>
+<p style="font-size:12px;margin-top:5px;">Managed by<br><b>Akanji Adunola Sherifat</b><br>Web Developer</p>
+<p style="font-size:11px;color:#888;margin-top:10px;">₦25k/month - Menu updates, Google, Reservations</p>
+</div>
+</div>
+
+<div class="main">
+<div class="tab-content active" id="tab-overview">
+<h1 style="font-size:32px;margin-bottom:25px;">Dashboard Overview</h1>
+<div class="stats">
+<div class="stat-card"><h3>TODAY RESERVATIONS</h3><div class="num" id="statRes">0</div></div>
+<div class="stat-card"><h3>TODAY ORDERS</h3><div class="num" id="statOrd">0</div></div>
+<div class="stat-card"><h3>MONTHLY REVENUE TRACK</h3><div class="num" id="statRev">₦0</div></div>
+<div class="stat-card"><h3>GOOGLE VISIBILITY</h3><div class="num" style="font-size:18px;color:#25D366;">ACTIVE ✓</div></div>
+</div>
+<div class="table-box">
+<h3>🔔 Latest Reservations - Need Action</h3>
+<table><thead><tr><th>NAME</th><th>GUESTS</th><th>DATE/TIME</th><th>PHONE</th><th>ACTION</th></tr></thead><tbody id="overviewResTable"></tbody></table>
+</div>
+</div>
+
+<div class="tab-content" id="tab-reservations">
+<h1 style="font-size:28px;margin-bottom:20px;">All Reservations</h1>
+<div class="table-box">
+<table><thead><tr><th>DATE</th><th>NAME</th><th>GUESTS</th><th>TIME</th><th>PHONE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="resTable"></tbody></table>
+</div>
+</div>
+
+<div class="tab-content" id="tab-orders">
+<h1 style="font-size:28px;margin-bottom:20px;">WhatsApp Orders</h1>
+<div class="table-box">
+<table><thead><tr><th>TIME</th><th>ITEM ORDERED</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="ordersTable"></tbody></table>
+</div>
+</div>
+
+<div class="tab-content" id="tab-menu">
+<h1 style="font-size:28px;margin-bottom:20px;">Menu Manager (Charge monthly for this)</h1>
+<div class="table-box">
+<h3>Current Menu - Click to Edit Price</h3>
+<table><thead><tr><th>DISH</th><th>CATEGORY</th><th>PRICE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody>
+<tr><td>Jollof Rice & Grilled Chicken</td><td>Rice</td><td>₦4,500</td><td><span class="status confirmed">Active</span></td><td><button class="btn-sm btn-confirm">Edit Price</button></td></tr>
+<tr><td>Suya Platter (Premium)</td><td>Grill</td><td>₦5,200</td><td><span class="status confirmed">Active</span></td><td><button class="btn-sm btn-confirm">Edit Price</button></td></tr>
+<tr><td>Egusi & Pounded Yam</td><td>Soup</td><td>₦5,000</td><td><span class="status confirmed">Active</span></td><td><button class="btn-sm btn-confirm">Edit Price</button></td></tr>
+<tr><td>Chapman Special</td><td>Drink</td><td>₦2,500</td><td><span class="status new">Low Stock</span></td><td><button class="btn-sm btn-delete">Out of Stock</button></td></tr>
+</tbody></table>
+<button class="btn-sm btn-whatsapp" style="margin-top:20px;padding:12px 20px;" onclick="document.getElementById('addForm').style.display='block'">+ ADD NEW DISH (Christmas Promo)</button>
+<div class="add-menu-form" id="addForm">
+<h4 style="margin-bottom:15px;color:var(--gold);">Add New Dish - You charge for this update</h4>
+<input placeholder="Dish Name - e.g. Christmas Goat Meat Pepper Soup">
+<input placeholder="Price - e.g. ₦7,000">
+<select><option>Rice / Soups</option><option>Grills / Suya</option><option>Small Chops</option><option>Drinks</option></select>
+<button class="btn-sm btn-confirm" style="padding:10px 20px;">SAVE DISH →</button>
+</div>
+</div>
+</div>
+
+<div class="tab-content" id="tab-customers">
+<h1 style="font-size:28px;margin-bottom:20px;">Customer Database - For Broadcast</h1>
+<div class="table-box">
+<h3>All Customers Who Reserved</h3>
+<table><thead><tr><th>NAME</th><th>PHONE</th><th>VISITS</th><th>LAST VISIT</th><th>ACTION</th></tr></thead><tbody id="custTable"></tbody></table>
+<button class="btn-sm btn-whatsapp" style="margin-top:20px;padding:12px 20px;">📤 EXPORT FOR WHATSAPP BROADCAST</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function login(){
+  const p = document.getElementById('password').value;
+  if(p === 'terra123'){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    loadData();
+  } else { alert('Wrong password! Demo is terra123'); }
+}
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  event.target.classList.add('active');
+}
+function loadData(){
+  const reservations = JSON.parse(localStorage.getItem('terra_reservations') || '[]');
+  const orders = JSON.parse(localStorage.getItem('terra_orders') || '[]');
+  if(reservations.length===0){
+    const demoRes = [
+      {name:'Chukwu Emeka', guests:'2 Guests', date:'2026-10-13', time:'7:30 PM', phone:'09134435650', status:'New', timeStamp:'Today 6:45 PM'},
+      {name:'Adaeze Uba', guests:'4 Guests', date:'2026-10-14', time:'6:00 PM', phone:'08123456789', status:'Confirmed', timeStamp:'Today 2:30 PM'}
+    ];
+    localStorage.setItem('terra_reservations', JSON.stringify(demoRes));
+  }
+  if(orders.length===0){
+    const demoOrd = [
+      {item:'Jollof Rice & Grilled Chicken - ₦4,500', time:'Today 1:20 PM', status:'New'},
+      {item:'Suya Platter - ₦5,200', time:'Today 12:45 PM', status:'Confirmed'}
+    ];
+    localStorage.setItem('terra_orders', JSON.stringify(demoOrd));
+  }
+  const finalRes = JSON.parse(localStorage.getItem('terra_reservations') || '[]');
+  const finalOrd = JSON.parse(localStorage.getItem('terra_orders') || '[]');
+  document.getElementById('statRes').innerText = finalRes.length;
+  document.getElementById('statOrd').innerText = finalOrd.length;
+  document.getElementById('statRev').innerText = '₦' + (finalOrd.length * 4500).toLocaleString();
+  const resHTML = finalRes.map(r=>`<tr><td>${r.timeStamp}</td><td>${r.name}</td><td>${r.guests}</td><td>${r.date} ${r.time}</td><td>${r.phone}</td><td><span class="status ${r.status==='New'?'new':'confirmed'}">${r.status}</span></td><td><button class="btn-sm btn-confirm" onclick="confirmRes('${r.phone}')">Confirm</button><button class="btn-sm btn-delete">X</button></td></tr>`).join('');
+  document.getElementById('resTable').innerHTML = resHTML;
+  document.getElementById('overviewResTable').innerHTML = resHTML.slice(0,500);
+  const ordHTML = finalOrd.map(o=>`<tr><td>${o.time}</td><td>${o.item}</td><td><span class="status new">${o.status}</span></td><td><button class="btn-sm btn-whatsapp">WhatsApp</button></td></tr>`).join('');
+  document.getElementById('ordersTable').innerHTML = ordHTML;
+  const custHTML = finalRes.map(c=>`<tr><td>${c.name}</td><td>${c.phone}</td><td>1</td><td>${c.date}</td><td><button class="btn-sm btn-whatsapp">Send Promo</button></td></tr>`).join('');
+  document.getElementById('custTable').innerHTML = custHTML;
+}
+function confirmRes(phone){ alert('Reservation confirmed! WhatsApp sent.'); }
+</script>
+</body>
+</html>

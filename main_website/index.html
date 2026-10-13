@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TERRA Nsukka | Luxury Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top-nav">
+<div class="logo">TERRA<span>NSUKKA</span></div>
+<div class="top-right" id="topLabel">ROOTED IN NSUKKA • CRAFTED IN LUXURY</div>
+</nav>
+
+<!-- HOME PAGE -->
+<section class="page active" id="page-home">
+<div class="home-hero">
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<div class="badge">OPEN DAILY • 11AM - 10PM • GRA NSUKKA</div>
+<h1>Authentic<br><span>Nigerian Flavors</span><br>Elevated</h1>
+<p>From smoky Jollof to premium Suya, every dish is crafted for the connoisseur. Experience fine dining in the heart of Nsukka.</p>
+<div class="hero-btns">
+<button class="btn-gold" onclick="switchPage('menu')">EXPLORE MENU →</button>
+<button class="btn-outline" onclick="switchPage('reserve')">RESERVE TABLE</button>
+</div>
+</div>
+</div>
+<div class="home-features">
+<div class="feat"><span>🔥</span><h4>Wood Smoked</h4><p>Authentic smoky flavor</p></div>
+<div class="feat"><span>👨‍🍳</span><h4>Master Chefs</h4><p>15+ years experience</p></div>
+<div class="feat"><span>⭐</span><h4>5 Star Rated</h4><p>Best in Enugu State</p></div>
+</div>
+</section>
+
+<!-- MENU PAGE -->
+<section class="page" id="page-menu">
+<div class="page-header">
+<h2>Signature Menu</h2>
+<p>Curated by our master chefs • Tap card to order</p>
+</div>
+<div class="filters">
+<button class="filter active" onclick="filterMenu('all', this)">ALL</button>
+<button class="filter" onclick="filterMenu('rice', this)">RICE • SOUPS</button>
+<button class="filter" onclick="filterMenu('grill', this)">GRILLS • SUYA</button>
+<button class="filter" onclick="filterMenu('small', this)">SMALL CHOPS</button>
+<button class="filter" onclick="filterMenu('drinks', this)">DRINKS</button>
+</div>
+<div class="menu-grid">
+<div class="food-card" data-cat="rice">
+<div class="card-img"><img src="images/jollof.png"><span class="card-tag">BESTSELLER</span></div>
+<div class="card-body">
+<h4>Jollof Rice & Grilled Chicken</h4>
+<p>Classic smoky jollof rice with succulent grilled chicken, fried plantain & coleslaw</p>
+<div class="card-bottom">
+<div class="price">₦4,500</div>
+<button class="btn-add" onclick="orderWhatsApp('Jollof Rice & Grilled Chicken - ₦4,500')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="grill">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400"><span class="card-tag gold">PREMIUM</span></div>
+<div class="card-body">
+<h4>Suya Platter (Premium)</h4>
+<p>Spicy beef skewers marinated 24hrs, onions, fresh yaji spice & grilled peppers</p>
+<div class="card-bottom">
+<div class="price">₦5,200</div>
+<button class="btn-add" onclick="orderWhatsApp('Suya Platter - ₦5,200')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="rice">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400"></div>
+<div class="card-body">
+<h4>Egusi & Pounded Yam</h4>
+<p>Traditional melon soup cooked with assorted meat, served with soft pounded yam</p>
+<div class="card-bottom">
+<div class="price">₦5,000</div>
+<button class="btn-add" onclick="orderWhatsApp('Egusi & Pounded Yam - ₦5,000')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="small">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400"><span class="card-tag">NEW</span></div>
+<div class="card-body">
+<h4>Puff Puff (10pcs)</h4>
+<p>Golden sweet fried dough balls dusted with powdered sugar & honey drizzle</p>
+<div class="card-bottom">
+<div class="price">₦2,000</div>
+<button class="btn-add" onclick="orderWhatsApp('Puff Puff 10pcs - ₦2,000')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="grill">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400"><span class="card-tag gold">CHEF'S CHOICE</span></div>
+<div class="card-body">
+<h4>Grilled Catfish & Chips</h4>
+<p>Whole catfish grilled to perfection, spicy pepper sauce, golden fries & tartar</p>
+<div class="card-bottom">
+<div class="price">₦6,500</div>
+<button class="btn-add" onclick="orderWhatsApp('Grilled Catfish & Chips - ₦6,500')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="drinks">
+<div class="card-img"><img src="images/champagne.png"></div>
+<div class="card-body">
+<h4>Chapman Special</h4>
+<p>Premium Chapman cocktail with fruits, Angostura bitters & cucumber - signature</p>
+<div class="card-bottom">
+<div class="price">₦2,500</div>
+<button class="btn-add" onclick="orderWhatsApp('Chapman Special - ₦2,500')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="rice">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400"></div>
+<div class="card-body">
+<h4>Nsukka Pepper Soup & Yam</h4>
+<p>Hot spicy pepper soup with goat meat, scent leaves & white yam cubes</p>
+<div class="card-bottom">
+<div class="price">₦5,500</div>
+<button class="btn-add" onclick="orderWhatsApp('Nsukka Pepper Soup - ₦5,500')">+ Add to Order</button>
+</div>
+</div>
+</div>
+<div class="food-card" data-cat="drinks">
+<div class="card-img"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400"></div>
+<div class="card-body">
+<h4>Palm Wine (Fresh)</h4>
+<p>Fresh tapped palm wine chilled, served in traditional calabash - sweet & natural</p>
+<div class="card-bottom">
+<div class="price">₦1,500</div>
+<button class="btn-add" onclick="orderWhatsApp('Fresh Palm Wine - ₦1,500')">+ Add to Order</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RESERVE PAGE -->
+<section class="page" id="page-reserve">
+<div class="page-header">
+<h2>Reserve Your Table</h2>
+<p>No calls needed • Instant WhatsApp confirmation</p>
+</div>
+<div class="reserve-layout">
+<div class="reserve-left">
+<h3>Why Reserve With Us?</h3>
+<ul class="benefit-list">
+<li>✓ Instant confirmation on WhatsApp</li>
+<li>✓ No deposit required</li>
+<li>✓ Free cancellation</li>
+<li>✓ Premium window seating</li>
+<li>✓ Complimentary welcome drink</li>
+</ul>
+<div class="qr-card">
+<div class="qr-header">SCAN TO RESERVE • TABLE 12</div>
+<div class="qr-box">QR CODE<br>TERRA.NSUKKA<br><small>TABLE 12</small></div>
+<p>Each table has unique QR<br>Scan • Order • Pay</p>
+</div>
+</div>
+<div class="reserve-right">
+<div class="res-form">
+<h4>Book Your Table</h4>
+<input type="text" id="cname" placeholder="Full Name - e.g. Chukwu Emeka">
+<div class="row2">
+<select id="guests"><option>2 Guests</option><option>1 Guest</option><option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option><option>8+ Guests - Event</option></select>
+<select id="rtime"><option>7:30 PM - Dinner</option><option>12:00 PM - Lunch</option><option>2:00 PM - Lunch</option><option>6:00 PM - Dinner</option><option>8:30 PM - Dinner</option></select>
+</div>
+<input type="date" id="rdate">
+<input type="tel" id="cphone" placeholder="WhatsApp Number - 0913...">
+<input type="text" id="cnote" placeholder="Special request - Anniversary, Birthday?">
+<button class="btn-gold full" onclick="confirmReserve()">CONFIRM RESERVATION →</button>
+<p class="form-note">You will receive confirmation on WhatsApp instantly • Free cancellation</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT PAGE -->
+<section class="page" id="page-contact">
+<div class="page-header">
+<h2>Visit Terra</h2>
+<p>Fine dining in the heart of Nsukka</p>
+</div>
+<div class="contact-grid">
+<div class="contact-card">
+<div class="c-icon">📍</div>
+<h4>Location</h4>
+<p>12 University Road, GRA<br>Nsukka, Enugu State<br>Nigeria</p>
+<a href="https://maps.google.com" target="_blank">View on Google Maps →</a>
+</div>
+<div class="contact-card">
+<div class="c-icon">⏰</div>
+<h4>Opening Hours</h4>
+<p>Tuesday - Sunday<br>5:00 PM - 11:00 PM<br><small>Monday Closed • Private events only</small></p>
+</div>
+<div class="contact-card">
+<div class="c-icon">📞</div>
+<h4>Contact</h4>
+<p>+234 903 555 7788<br>+234 913 443 5650<br>hello@terransukka.ng</p>
+<a href="https://wa.me/2349134435650?text=Hello%20TERRA" target="_blank" class="btn-gold small">Chat on WhatsApp</a>
+</div>
+</div>
+</section>
+
+<nav class="bottom-nav">
+<button class="nav-item active" data-page="home" onclick="switchPage('home')">
+<span class="nav-icon">🏠</span><span>Home</span>
+</button>
+<button class="nav-item" data-page="menu" onclick="switchPage('menu')">
+<span class="nav-icon">🍛</span><span>Menu</span>
+</button>
+<button class="nav-item" data-page="reserve" onclick="switchPage('reserve')">
+<span class="nav-icon">📅</span><span>Reserve</span>
+</button>
+<button class="nav-item" data-page="contact" onclick="switchPage('contact')">
+<span class="nav-icon">📍</span><span>Contact</span>
+</button>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
